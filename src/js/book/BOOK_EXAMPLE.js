@@ -1,29 +1,3 @@
-let BOOK_0 = {
-    "name" : "BOOK EXAMPLE SIMPLE",
-    "book" : [
-        {
-            "name": "nome",
-            "position": 1,
-            "size" : 10,
-            "key" : false,
-            "type" : "object",
-            "object" : {}
-        },
-        {
-            "name": "codigo",
-            "position": 0,
-            "size" : 2,
-            "key" : false,
-            "type" : "object",
-            "object" : {}
-        },
-    ],
-
-    "examples" : [
-        "10   WILLIAN",
-        "11   ADRIANA"
-    ]
-}
 
 let BOOK_1 = {
     "name" : "BOOK EXAMPLE LIST",
@@ -32,35 +6,35 @@ let BOOK_1 = {
             "name": "nome",
             "position": 1,
             "size" : 10,
-            "key" : false,
             "object" : {}
         },
         {
             "name": "codigo",
             "position": 0,
             "size" : 2,
-            "key" : true,
             "object" : {}
         },
         {
             "name": "contas",
             "position": 2,
-            "size" : 24, // Preciso desse Size quando o tipo é lista?
-            "key" : false,
-            "list" : [
-                {
-                    "name": "conta",
-                    "position": 1,
-                    "size" : 5,
-                    "object" : {}
-                },
-                {
-                    "name": "agencia",
-                    "position": 0, // position dentro da List
-                    "size" : 7,
-                    "object" : {}
-                }
-            ]
+            "amount" : 2, //Tamanho dos itens da Lista, 2x
+            "list" : {
+                "key": "codigo",
+                "src": [
+                    {
+                        "name": "conta",
+                        "position": 1,
+                        "size" : 5,
+                        "object" : {}
+                    },
+                    {
+                        "name": "agencia",
+                        "position": 0, // position dentro da List
+                        "size" : 7,
+                        "object" : {}
+                    }
+                ]
+            }
         }
     ],
 
@@ -85,66 +59,21 @@ let sortBook = (book) => {
         if(!Object.hasOwn(obj, 'list'))
             return;
         
-        sortBook(obj.list);
+        sortBook(obj.list.src);
     });
 }
 
-let convertTrancodeBookInObject = (trancode,)
+// let convertTrancodeBookInObject = (trancode,)
 
-let convertTrancodeInJson = (trancode, bookDefinition) => {
-    let objReturn = {};
-    objReturn.name = bookDefinition.name;
-    objReturn.trancodeAtributeList = [];
-    let inicioCorte = 0;
-    let fimCorte = 0;
-    
-    bookDefinition.book.forEach((objAtributeDetails)=>{
-        let trancodeAtribute = {};
-        let atributevalue = "";
-        fimCorte = inicioCorte+objAtributeDetails.size;
-        atributevalue = trancode.substring(inicioCorte, fimCorte);
-        inicioCorte = fimCorte;     
 
-        trancodeAtribute[objAtributeDetails.name] = {
-            "value" : atributevalue,
-            "key": objAtributeDetails.key,
-            "custom" : objAtributeDetails.object
-        };
 
-        objReturn.trancodeAtributeList.push(trancodeAtribute);
-    })
-
-    //exemplo de json para montar a tabela
-    let json = {
-        "name" : bookDefinition.name,
-        "trancodeAtributeList" : [
-            {
-                "codigo": {
-                    "value": "001",
-                    "key" : false,
-                    "type" : "object",
-                    "custom" : {}
-                },
-                "nome": {
-                    'value': "WILLIAN",
-                    "key" : false,
-                    "type" : "object",
-                    'custom' : {}
-                }
-            }
-        ]
-    }
-
-    return objReturn;
-}
-
-console.log(BOOK_1);
-console.log("name :" + BOOK_1.name);
-sortBook(BOOK_1.book);
-console.log("book :" + JSON.stringify(BOOK_1.book));
+console.log(BOOK_0);
+console.log("name :" + BOOK_0.name);
+sortBook(BOOK_0.book);
+console.log("book :" + JSON.stringify(BOOK_0.book));
 console.log("name :" + BOOK_0.name);
 
-console.log("book :" + JSON.stringify(convertTrancodeInJson(BOOK_1.examples[0],BOOK_1)));
+console.log("book :" + JSON.stringify(convertTrancodeInJson(BOOK_0.examples[0],BOOK_0)));
 
 /* Fazer: 
     Adicionar o objeto TYPE no bookDefinition
