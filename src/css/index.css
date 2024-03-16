@@ -81,3 +81,9 @@ h1 {
 .rwd-table th, .rwd-table td:before {
   color: #dd5;
 }
+
+.rwd-select {
+  background: #34495E;
+  color: #fff;
+  overflow: hidden;
+}

@@ -1,5 +1,6 @@
 let BOOK_0 = {
-    "name" : "BOOK EXAMPLE SIMPLE",
+    "key" : "BOOK_0",
+    "name" : "BOOK EXAMPLE SIMPLE 0",
     "book" : [
         {
             "name": "nome",
