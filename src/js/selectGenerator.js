@@ -16,5 +16,5 @@ let acaoSelect = (event) => {
     let book = JSON.parse(event.target.value);
     let exampleTextElement = document.querySelector('.example');
 
-    exampleTextElement.innerHTML =(book.examples[0]);
+    exampleTextElement.value =(book.examples[0]);
 }

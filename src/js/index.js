@@ -15,7 +15,6 @@ let adicionarEvento = (event,element,action) => {
 let acaoBotaoTransformar = (event) => {
     let book = JSON.parse(SELECT_ELEMENT.value);
     let trancodeInJson = convertTrancodeInJson(TEXTAREA_ELEMENT.value,book)
-    console.log(TEXTAREA_ELEMENT.value);
     let table = buildTable(getHeaderArray(trancodeInJson),getObjValueArray(trancodeInJson));
     TABLE_LOCAL_ELEMENT.innerHTML = "";
     TABLE_LOCAL_ELEMENT.appendChild(table);
