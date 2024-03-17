@@ -6,28 +6,24 @@ let BOOK_01 = {
             "name": "nome",
             "position": 1,
             "size" : 10,
-            "type" : "object",
             "object" : {}
         },
         {
             "name": "codigo",
             "position": 0,
             "size" : 2,
-            "type" : "object",
             "object" : {}
         },
         {
             "name": "idade",
             "position": 2,
             "size" : 2,
-            "type" : "object",
             "object" : {}
         },
         {
             "name": "descricao",
             "position": 3,
             "size" : 30,
-            "type" : "object",
             "object" : {}
         },
     ],
