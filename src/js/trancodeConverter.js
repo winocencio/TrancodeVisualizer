@@ -21,6 +21,20 @@ let sortBook = (book) => {
     });
 }
 
+let prepareAtributeListBook = (obj) => {
+    obj.size = Object.values(obj.list.src).reduce((a, b) => a + b.size, 0) * obj.amount;
+}
+
+let prepareBook = (book) => {
+    book.forEach(obj => {
+        if(!Object.hasOwn(obj, 'list'))
+            return;
+        
+        prepareAtributeListBook(obj);
+        prepareBook(obj.list.src);
+    });
+}
+
 let buildTrancodeAtribute = (objAtributeDetails,atributevalue) => {
     let trancodeAtribute = {};
     trancodeAtribute[objAtributeDetails.name] = {
@@ -36,6 +50,7 @@ let convertTrancodeInJson = (trancode, bookDefinition) => {
     HEAD_TRANCODE = trancode;
 
     sortBook(bookDefinition.book);
+    prepareBook(bookDefinition.book);
     convertTrancodeBookInObjectLoop(bookDefinition.book,objReturn.trancodeAtributeList);
     objReturn.name = bookDefinition.name;
 
