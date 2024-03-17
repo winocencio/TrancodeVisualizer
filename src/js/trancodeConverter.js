@@ -35,7 +35,25 @@ let prepareBook = (book) => {
     });
 }
 
-let buildTrancodeAtribute = (objAtributeDetails,atributevalue) => {
+let buildAtribute = (objAtributeDetails,atributevalue) => {
+    if(Object.hasOwn(objAtributeDetails, 'list'))
+        return buildTrancodeAtributeList(objAtributeDetails,atributevalue);
+
+    return buildTrancodeAtributeObj(objAtributeDetails,atributevalue);
+}
+
+let buildTrancodeAtributeList = (objAtributeDetails,atributevalue) => {
+    let nestedAtributeList = []
+        let amount = objAtributeDetails.amount;
+        for(let counter=0; counter < amount;counter++){
+            let atributeList = [];
+            atributevalue = convertTrancodeBookInObjectLoop(atributevalue,objAtributeDetails.list.src,atributeList)
+            nestedAtributeList.push(buildTrancodeAtributeObj(objAtributeDetails,atributeList));
+        }
+        return nestedAtributeList;
+}
+
+let buildTrancodeAtributeObj = (objAtributeDetails,atributevalue) => {
     let trancodeAtribute = {};
     trancodeAtribute[objAtributeDetails.name] = {
         "value" : atributevalue,
@@ -47,24 +65,26 @@ let buildTrancodeAtribute = (objAtributeDetails,atributevalue) => {
 let convertTrancodeInJson = (trancode, bookDefinition) => {
     let objReturn = {};
     objReturn.trancodeAtributeList = [];
-    HEAD_TRANCODE = trancode;
 
     sortBook(bookDefinition.book);
     prepareBook(bookDefinition.book);
-    convertTrancodeBookInObjectLoop(bookDefinition.book,objReturn.trancodeAtributeList);
+    convertTrancodeBookInObjectLoop(trancode,bookDefinition.book,objReturn.trancodeAtributeList);
     objReturn.name = bookDefinition.name;
 
     return objReturn;
 }
 
 
-let convertTrancodeBookInObjectLoop = (book, returnList) => {
+let convertTrancodeBookInObjectLoop = (trancode,book, returnList) => {
+    console.log(returnList);
+    let fimCorte = 0
     book.forEach((objAtributeDetails)=>{
-        FIM_CORTE = INICIO_CORTE+objAtributeDetails.size;
-        let atributevalue = HEAD_TRANCODE.substring(INICIO_CORTE, FIM_CORTE);
-        HEAD_TRANCODE = HEAD_TRANCODE.substring(FIM_CORTE);
-        returnList.push(buildTrancodeAtribute(objAtributeDetails,atributevalue));
+        fimCorte = INICIO_CORTE+objAtributeDetails.size;
+        let atributevalue = trancode.substring(INICIO_CORTE, fimCorte);
+        trancode = trancode.substring(fimCorte);
+        returnList.push(buildAtribute(objAtributeDetails,atributevalue));
     });
+    return trancode;
 }
 
 let getHeaderArray = (trancodeInJson) =>{

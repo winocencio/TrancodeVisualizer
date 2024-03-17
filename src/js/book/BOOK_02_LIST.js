@@ -39,7 +39,7 @@ let BOOK_02_LIST = {
     ],
 
     "examples" : [
-        "10   WILLIANagenciacontaagenciaconta",
+        "10   WILLIANagenci0cont0agenci1cont1",
         "11   ADRIANA000011102345123456712345"
     ]
 }
