@@ -1,3 +1,7 @@
+let HEAD_TRANCODE = "";
+let INICIO_CORTE = 0;
+let FIM_CORTE = 0;
+
 let compare = (a,b) => {
     if (a.position < b.position)
         return -1;
@@ -27,22 +31,25 @@ let buildTrancodeAtribute = (objAtributeDetails,atributevalue) => {
 }
 
 let convertTrancodeInJson = (trancode, bookDefinition) => {
-    sortBook(bookDefinition.book);
-    let inicioCorte = 0;
-    let fimCorte = 0;
     let objReturn = {};
     objReturn.trancodeAtributeList = [];
-    
-    bookDefinition.book.forEach((objAtributeDetails)=>{
-        
-        fimCorte = inicioCorte+objAtributeDetails.size;
-        let atributevalue = trancode.substring(inicioCorte, fimCorte);
-        objReturn.trancodeAtributeList.push(buildTrancodeAtribute(objAtributeDetails,atributevalue));
-        inicioCorte = fimCorte;
-    })
+    HEAD_TRANCODE = trancode;
 
+    sortBook(bookDefinition.book);
+    convertTrancodeBookInObjectLoop(bookDefinition.book,objReturn.trancodeAtributeList);
     objReturn.name = bookDefinition.name;
+
     return objReturn;
+}
+
+
+let convertTrancodeBookInObjectLoop = (book, returnList) => {
+    book.forEach((objAtributeDetails)=>{
+        FIM_CORTE = INICIO_CORTE+objAtributeDetails.size;
+        let atributevalue = HEAD_TRANCODE.substring(INICIO_CORTE, FIM_CORTE);
+        HEAD_TRANCODE = HEAD_TRANCODE.substring(FIM_CORTE);
+        returnList.push(buildTrancodeAtribute(objAtributeDetails,atributevalue));
+    });
 }
 
 let getHeaderArray = (trancodeInJson) =>{
