@@ -6,5 +6,9 @@ let BOOK_ARRAY = [
     {
         name: "BOOK_01",
         value: JSON.stringify(BOOK_01)
+    },
+    {
+        name: "BOOK_02_LIST",
+        value: JSON.stringify(BOOK_02_LIST)
     }
 ];
