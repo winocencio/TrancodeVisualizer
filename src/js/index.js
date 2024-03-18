@@ -17,7 +17,7 @@ let acaoBotaoTransformar = (event) => {
     let book = JSON.parse(SELECT_ELEMENT.value);
     let trancodeInJson = convertTrancodeInJson(TEXTAREA_ELEMENT.value,book)
     console.log(trancodeInJson);
-    buildTables(trancodeInJson.trancodeAtributeList);
+    startBuildTables(trancodeInJson.trancodeAtributeList);
 }
 
 window.addEventListener("load", (event) => {
