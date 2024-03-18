@@ -61,7 +61,7 @@ let getTableHeaderRow = (headerArray) => {
 
 let getCellElement = (objValue) => {
     const cellElement = document.createElement("td");
-    cellElement.appendChild(document.createTextNode(objValue.value));
+    cellElement.appendChild(document.createTextNode(objValue.value ? objValue.value : ""));
     cellElement.dataset.custom = JSON.stringify(objValue.custom);
     return cellElement;
 }
