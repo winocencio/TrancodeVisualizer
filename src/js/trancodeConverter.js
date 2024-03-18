@@ -30,8 +30,8 @@ let prepareBook = (book) => {
         if(!Object.hasOwn(obj, 'list'))
             return;
         
-        prepareAtributeListBook(obj);
         prepareBook(obj.list.src);
+        prepareAtributeListBook(obj);
     });
 }
 

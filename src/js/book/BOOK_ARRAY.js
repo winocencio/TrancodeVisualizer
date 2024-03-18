@@ -10,5 +10,9 @@ let BOOK_ARRAY = [
     {
         name: "BOOK_02_LIST",
         value: JSON.stringify(BOOK_02_LIST)
+    },
+    {
+        name: "BOOK_03_LIST_NESTED",
+        value: JSON.stringify(BOOK_03_LIST_NESTED)
     }
 ];
