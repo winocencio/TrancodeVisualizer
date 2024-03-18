@@ -43,14 +43,19 @@ let buildAtribute = (objAtributeDetails,atributevalue) => {
 }
 
 let buildTrancodeAtributeList = (objAtributeDetails,atributevalue) => {
-    let nestedAtributeList = []
-        let amount = objAtributeDetails.amount;
-        for(let counter=0; counter < amount;counter++){
-            let atributeList = [];
-            atributevalue = convertTrancodeBookInObjectLoop(atributevalue,objAtributeDetails.list.src,atributeList)
-            nestedAtributeList.push(buildTrancodeAtributeObj(objAtributeDetails,atributeList));
-        }
-        return nestedAtributeList;
+    let nestedAtributeObj = {}
+    nestedAtributeObj[objAtributeDetails.name] = {
+        key : objAtributeDetails,
+        list : []
+    };
+
+    let amount = objAtributeDetails.amount;
+    for(let counter=0; counter < amount;counter++){
+        let atributeList = [];
+        atributevalue = convertTrancodeBookInObjectLoop(atributevalue,objAtributeDetails.list.src,atributeList)
+        nestedAtributeObj[objAtributeDetails.name].list.push(atributeList);
+    }
+    return nestedAtributeObj;
 }
 
 let buildTrancodeAtributeObj = (objAtributeDetails,atributevalue) => {
@@ -69,6 +74,7 @@ let convertTrancodeInJson = (trancode, bookDefinition) => {
     sortBook(bookDefinition.book);
     prepareBook(bookDefinition.book);
     convertTrancodeBookInObjectLoop(trancode,bookDefinition.book,objReturn.trancodeAtributeList);
+    objReturn.trancodeAtributeList = [objReturn.trancodeAtributeList];
     objReturn.name = bookDefinition.name;
 
     return objReturn;
@@ -76,7 +82,6 @@ let convertTrancodeInJson = (trancode, bookDefinition) => {
 
 
 let convertTrancodeBookInObjectLoop = (trancode,book, returnList) => {
-    console.log(returnList);
     let fimCorte = 0
     book.forEach((objAtributeDetails)=>{
         fimCorte = INICIO_CORTE+objAtributeDetails.size;
@@ -87,17 +92,17 @@ let convertTrancodeBookInObjectLoop = (trancode,book, returnList) => {
     return trancode;
 }
 
-let getHeaderArray = (trancodeInJson) =>{
+let getHeaderArray = (atributeList) =>{
     let headerArrayReturn = []
-    trancodeInJson.trancodeAtributeList.forEach((atribute)=>{
+    atributeList.forEach((atribute)=>{
         headerArrayReturn.push(Object.keys(atribute));
     });
     return headerArrayReturn;
 }
 
-let getObjValueArray = (trancodeInJson) =>{
+let getObjValueArray = (atributeList) =>{
     let objValueArrayReturn = []
-    trancodeInJson.trancodeAtributeList.forEach((atribute)=>{
+    atributeList.forEach((atribute)=>{
         objValueArrayReturn.push(Object.values(atribute)[0]);
     });
     return objValueArrayReturn;
